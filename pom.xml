@@ -4,6 +4,12 @@
   <artifactId>ProjectOne</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
+  
+<properties>
+	    <maven.compiler.source>1.6</maven.compiler.source>
+	    <maven.compiler.target>1.6</maven.compiler.target>
+  	</properties>
+
   <dependencies>
   
   	<!-- Oracle DB -->
@@ -27,11 +33,6 @@
         <version>2.5</version>
         <scope>provided</scope>
     </dependency>
-
-    <properties>
-	    <maven.compiler.source>1.6</maven.compiler.source>
-	    <maven.compiler.target>1.6</maven.compiler.target>
-  	</properties>
     
   </dependencies>
 </project>

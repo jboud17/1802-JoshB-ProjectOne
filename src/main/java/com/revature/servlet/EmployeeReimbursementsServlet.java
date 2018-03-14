@@ -12,7 +12,7 @@ import javax.servlet.http.*;
 
 import com.revature.util.ConnFactory;
 
-public class EmployeeDashboardServlet extends HttpServlet {
+public class EmployeeReimbursementsServlet extends HttpServlet {
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -21,7 +21,7 @@ public class EmployeeDashboardServlet extends HttpServlet {
 		HttpSession session = req.getSession(false);
 
 		if(session!=null && session.getAttribute("username") != null){
-			req.getRequestDispatcher("employee-dashboard.html").forward(req, resp);
+			req.getRequestDispatcher("employee-reimbursements.html").forward(req, resp);
 		} else {
 			resp.sendRedirect("login");
 		}

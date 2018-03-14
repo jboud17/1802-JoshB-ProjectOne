@@ -24,11 +24,20 @@ public class GetReimbursementsServlet extends HttpServlet {
 		resp.setContentType("application/json");
         ArrayList<String> reimbursements = new ArrayList<String>();
 
+        Integer userId = (Integer) session.getAttribute("userId");
+
+        System.out.println(userId);
+
         try {
 
             // Conn factory
             ConnFactory cf = new ConnFactory();
             Connection conn = cf.getConnection();
+
+
+            if(userId != null) {
+                System.out.println("User id does not equal null. It equals: " + userId);
+            }
         
             // Populate sql statement
             String sqlGet = "SELECT * FROM ers_reimbursements LEFT JOIN ers_users ON ";

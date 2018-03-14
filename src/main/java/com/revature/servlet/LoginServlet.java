@@ -64,25 +64,18 @@ public class LoginServlet extends HttpServlet {
 			// Perform checks and redirects
 			if(rs.next()) {
 				
-				userId = rs.getInt("u_id");
 				username = rs.getString("u_username");
 				password = rs.getString("u_password");
-				roleId = rs.getInt("ur_id");
+				int roleId = rs.getInt("ur_id");
+				int userId = rs.getInt("u_id");
 				
 				if(formPassword.equals(password)) {
-					if(roleId == 1) {
-						
-						firstName = rs.getString("u_firstname");
-						lastName = rs.getString("u_lastname");
-						email = rs.getString("u_email");
-						
-						// pass user values into string to be parsed
-						user += userId + ":" + username + ":" + password + ":" + firstName + ":" + lastName + ":" + email + ":" + roleId; 
-						// set session attribute and redirect to admin-dashboard
+					if(roleId == 1) { 
 						session.setAttribute("username", username);
 						resp.sendRedirect("admin-dashboard");
-						
 					} else {
+						session.setAttribute("username", username);
+						session.setAttribute("userId", userId);
 						resp.sendRedirect("employee-dashboard");
 					}
 				} else {
@@ -91,8 +84,6 @@ public class LoginServlet extends HttpServlet {
 				
 			} else {
 				resp.sendRedirect("login");
-//				req.setAttribute("error-msg", "Error! Wrong login info.");
-//				req.getRequestDispatcher("/login.html").forward(req, resp);;
 			}
 			
 			

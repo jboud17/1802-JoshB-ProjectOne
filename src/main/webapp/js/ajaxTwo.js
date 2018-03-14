@@ -1,8 +1,6 @@
 function sendAjaxGet(url, func) {
-	var xhr = new XMLHttpRequest() 
-					|| new ActiveXObject("Microsoft.HTTPRequest");
+    var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
-		// console.log(this.readyState);
 		if (this.readyState == 4 && this.status == 200) {
 			func(this);
 		}
@@ -12,12 +10,24 @@ function sendAjaxGet(url, func) {
 };
 
 function populateUser(xhr) {
-	var res = JSON.parse(xhr.responseText);
-	if (res.username != "null") { //error checking could be improved 
-		document.getElementById("c-username").textContent = res.username;
-	} else {
-		window.location = "http://localhost:8080/ProjectOne/login";
+
+    var res = JSON.parse(xhr.responseText);
+	document.getElementById("c-username").textContent = res.username;
+
+	// check if on dahboard page
+	var location = window.location.href;
+	if(location.indexOf("http://localhost:8080/ProjectOne/employee-dashboard") > -1) {
+		document.getElementById("userIdInfo").textContent = res.id;
+		document.getElementById("usernameInfo").textContent = res.username;
+		document.getElementById("firstNameInfo").textContent = res.firstName;
+		document.getElementById("lastNameInfo").textContent = res.lastName;
+		document.getElementById("emailInfo").textContent = res.email;
+
+		// edit form values
+		document.getElementById("updateUsername").value = res.username;
+		document.getElementById("updateEmail").value = res.email;
 	}
+
 }
 
 function loadReimbursements(xhr) {
@@ -59,51 +69,17 @@ function loadReimbursements(xhr) {
 	})
 }
 
-
-
-function loadUsers(xhr) {
-    
-	var users = JSON.parse(xhr.responseText);
-    var table = document.getElementById("users");
-
-    for(var i=0; i<users.length; i++) {
-        var newrow = document.createElement("tr");
-        newrow.setAttribute("id", "user-" + i);
-        table.appendChild(newrow);
-        var row = document.getElementById("user-" + i);
-        row.innerHTML += "<td>"+users[i].id+"</td>";
-        row.innerHTML += "<td>$"+users[i].username+"</td>";
-        row.innerHTML += "<td>"+users[i].firstName+"</td>";
-        row.innerHTML += "<td>"+users[i].lastName+"</td>";
-        row.innerHTML += "<td>"+users[i].email+"</td>";
-        row.innerHTML += "<td>"+users[i].role+"</td>";
-	}
-	
-	// load data table
-	$(document).ready(function() {
-		$('#ajaxTable').DataTable();
-	})
-}
-
-
-
-
 window.onload = function() {
 	
 	// Get logged in user
-	sendAjaxGet("http://localhost:8080/ProjectOne/session", populateUser);
+	sendAjaxGet("http://localhost:8080/ProjectOne/employee-session", populateUser);
 	
 	// Get current URL
 	var location = window.location.href;
 	
 	// run ajax request if on reimbursements page
-	if (location.indexOf("http://localhost:8080/ProjectOne/reimbursements") > -1) {
+	if (location.indexOf("http://localhost:8080/ProjectOne/employee-reimbursements") > -1) {
 		sendAjaxGet("http://localhost:8080/ProjectOne/get-reimbursements", loadReimbursements);
-	}
-	
-	// run ajax request if on users page
-	if (location.indexOf("http://localhost:8080/ProjectOne/users") > -1) {
-		sendAjaxGet("http://localhost:8080/ProjectOne/get-users", loadUsers);
 	}
 	
 }

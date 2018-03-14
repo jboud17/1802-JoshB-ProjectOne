@@ -83,6 +83,23 @@
   	<servlet-name>getUsers</servlet-name>
   	<url-pattern>/get-users</url-pattern>
   </servlet-mapping>
-  
+
+  <servlet>
+  	<servlet-name>employeeSession</servlet-name>
+  	<servlet-class>com.revature.servlet.EmployeeSessionServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>employeeSession</servlet-name>
+  	<url-pattern>/employee-session</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+  	<servlet-name>employeeReimbursements</servlet-name>
+  	<servlet-class>com.revature.servlet.EmployeeReimbursementsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>employeeReimbursements</servlet-name>
+  	<url-pattern>/employee-reimbursements</url-pattern>
+  </servlet-mapping>
   
 </web-app>
